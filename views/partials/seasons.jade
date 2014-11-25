@@ -5,4 +5,4 @@ div(ng-controller='FootballController')
         h2 Hello {{yourName}}
 
         div(ng-repeat="season in seasons")
-            a(href="{{season.id}}") {{season.caption}}
+            a(href="#/rankings/{{season.id}}") {{season.caption}}

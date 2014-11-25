@@ -1,8 +1,8 @@
-    div(ng-controller='RankingsController')
-        h1= title
-        p RANKING to #{title}
-        input(type="text" ng-model="yourName" placeholder="Enter a name here")
-        h2 Hello {{yourName}}
+div(ng-controller='RankingsController')
+    h1= title
+    p RANKING to #{title}
+    input(type="text" ng-model="yourName" placeholder="Enter a name here")
+    h2 Hello {{yourName}}
 
-        div(ng-repeat="rank in rankings")
-            {{rank.rank}} {{rank.team}}
+    div(ng-repeat="rank in rankings")
+        {{rank.rank}} {{rank.team}}

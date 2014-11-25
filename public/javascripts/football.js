@@ -1,6 +1,6 @@
 var footballApp = angular.module('footballApp', ['ngRoute', 'ngResource']);
 
-footballApp.config(['$routeProvider', function($routeProvider) {
+footballApp.config(function($routeProvider) {
   $routeProvider
   	.when('/rankings/:id', {
       templateUrl:'/partials/rankings/',
@@ -11,9 +11,9 @@ footballApp.config(['$routeProvider', function($routeProvider) {
       controller:'FootballController'
     })
     .otherwise({
-      redirectTo:'/'
+      redirectTo:'/rankings/:id'
     });
-}]);
+});
 
 footballApp.factory('Seasons', ['$resource', 
     function($resource) {
@@ -24,18 +24,23 @@ footballApp.factory('Seasons', ['$resource',
 
 footballApp.factory('Rankings', ['$resource', 
     function($resource) {
-    	console.log("test");
-        return $resource('/api/seasons/351/ranking', {}, {
-            query: {method:'GET', params:{}, isArray:false}
+        return $resource('/api/seasons/:id/ranking', {}, {
+            query: {method:'GET', params:{id:'id'}, isArray:false}
         });
 }]);
 
 footballApp.controller('FootballController', ['$scope', 'Seasons', function($scope, Seasons) {
-	console.log("seasons");
     $scope.seasons = Seasons.query();
 }]);
 
-footballApp.controller('RankingsController', ['$scope', 'Rankings', function($scope, Rankings) {
-	console.log("rankings controller");
-    $scope.rankings = Rankings.query().rankings;
+footballApp.controller('RankingsController', ['$scope', '$routeParams', 'Rankings', function($scope, $routeParams, Rankings) {
+	Rankings.get({id: $routeParams.id}, function(rankObject) {
+    	$scope.rankings = rankObject.ranking;
+  	});
+  	/*
+	var rankingObject = Rankings.query();
+	rankingObject.$promise.then(function(rankObject) {
+		$scope.rankings = rankObject.ranking;
+	});
+*/
 }]);
