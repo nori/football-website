@@ -1,0 +1,8 @@
+div(ng-controller='FootballController')
+        h1= title
+        p SEASONS to #{title}
+        input(type="text" ng-model="yourName" placeholder="Enter a name here")
+        h2 Hello {{yourName}}
+
+        div(ng-repeat="season in seasons")
+            a(href="{{season.id}}") {{season.caption}}

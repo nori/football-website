@@ -1,13 +1,5 @@
-extends layout
+extends partials/layout
 
 block content
-    div(ng-controller='FootballController')
-        h1= title
-        p Welcome to #{title}
-        input(type="text" ng-model="yourName" placeholder="Enter a name here")
-        h2 Hello {{yourName}}
-
-        div(ng-repeat="season in seasons")
-            a(href="{{season.id}}") {{season.caption}}
-
-    script(src='javascripts/football.js')
+	h1= test
+	div(ng-view)

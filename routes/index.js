@@ -5,6 +5,11 @@ var cache = require('../cache');
 
 var baseUrl = "http://www.football-data.org/";
 
+router.get('/partials/:name', function (req, res) {
+	var name = req.params.name;
+	res.render('partials/' + name);
+});
+
 router.get('/api/seasons', function(req, res) {
     var subUrl = "soccerseasons";
     cache.get('seasons.json', baseUrl + subUrl, function(err, data) {
@@ -29,8 +34,9 @@ router.get('/api/seasons/:id/ranking', function(req, res) {
 });
 
 /* GET home page. */
-router.get('/', function(req, res) {
-  res.render('index', { title: 'Express' });
+router.get('*', function(req, res) {
+	console.log("home page");
+	res.render('index', { title: 'Express' });
 });
 
 module.exports = router;
