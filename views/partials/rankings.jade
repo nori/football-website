@@ -3,3 +3,8 @@ div(ng-controller='RankingsController')
 
     div(ng-repeat="rank in rankings")
         {{rank.rank}} {{rank.team}}
+
+    h1= "Leikir"
+
+    div(ng-repeat="fixture in fixtures")
+        {{fixture.homeTeam}} {{fixture.goalsHomeTeam}} - {{fixture.goalsAwayTeam}} {{fixture.awayTeam}}

@@ -29,18 +29,26 @@ footballApp.factory('Rankings', ['$resource',
         });
 }]);
 
+footballApp.factory('Fixtures', ['$resource', 
+    function($resource) {
+        return $resource('/api/seasons/:id/fixtures', {}, {
+            query: {method:'GET', params:{id:'id'}, isArray:true}
+        });
+}]);
+
 footballApp.controller('FootballController', ['$scope', 'Seasons', function($scope, Seasons) {
     $scope.seasons = Seasons.query();
 }]);
 
-footballApp.controller('RankingsController', ['$scope', '$routeParams', 'Rankings', function($scope, $routeParams, Rankings) {
+footballApp.controller('RankingsController', 
+						['$scope', 
+						'$routeParams', 
+						'Rankings', 
+						'Fixtures', function($scope, $routeParams, Rankings, Fixtures) {
 	Rankings.get({id: $routeParams.id}, function(rankObject) {
     	$scope.rankings = rankObject.ranking;
   	});
-  	/*
-	var rankingObject = Rankings.query();
-	rankingObject.$promise.then(function(rankObject) {
-		$scope.rankings = rankObject.ranking;
-	});
-*/
+  	Fixtures.query({id: $routeParams.id}, function(fixtures) {
+    	$scope.fixtures = fixtures;
+  	});
 }]);
