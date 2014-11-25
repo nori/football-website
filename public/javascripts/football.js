@@ -2,7 +2,7 @@ var footballApp = angular.module('footballApp', ['ngRoute', 'ngResource']);
 
 footballApp.config(function($routeProvider) {
   $routeProvider
-  	.when('/rankings/:id', {
+    .when('/rankings/:id', {
       templateUrl:'/partials/rankings/',
       controller:'RankingsController'
     })
@@ -41,14 +41,33 @@ footballApp.controller('FootballController', ['$scope', 'Seasons', function($sco
 }]);
 
 footballApp.controller('RankingsController', 
-						['$scope', 
-						'$routeParams', 
-						'Rankings', 
-						'Fixtures', function($scope, $routeParams, Rankings, Fixtures) {
-	Rankings.get({id: $routeParams.id}, function(rankObject) {
-    	$scope.rankings = rankObject.ranking;
-  	});
-  	Fixtures.query({id: $routeParams.id}, function(fixtures) {
-    	$scope.fixtures = fixtures;
-  	});
+                        ['$scope', 
+                        '$routeParams', 
+                        'Rankings', 
+                        'Fixtures', function($scope, $routeParams, Rankings, Fixtures) {
+    Rankings.get({id: $routeParams.id}, function(rankObject) {
+        $scope.rankings = rankObject.ranking;
+    });
+    Fixtures.query({id: $routeParams.id}, function(fixtures) {
+        var prevFixtures = [];
+        var nextFixtures = [];
+        for (var i = 0; i < fixtures.length; i++) {
+            if (fixtures[i].goalsHomeTeam > -1) {
+                prevFixtures.push(fixtures[i]);
+            } else {
+                nextFixtures.push(fixtures[i]);
+            }
+        }
+        $scope.prevFixtures = prevFixtures;
+        $scope.nextFixtures = nextFixtures;
+    });
+
+    $scope.selectedTeam = null;
+    $scope.toggleTeam = function(team) {
+        if ($scope.selectedTeam !== team) {
+            $scope.selectedTeam = team;
+        } else {
+            $scope.selectedTeam = null;
+        }
+    };
 }]);
