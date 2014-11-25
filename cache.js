@@ -17,7 +17,6 @@ var cache = {
 
             var now = new Date();
             if (new Date(now.getTime() - this.cacheDuration) > stats.mtime) {
-                console.log("Old data");
                 self.download(key, url, callback);
                 return;
             }
