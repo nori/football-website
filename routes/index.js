@@ -16,6 +16,18 @@ router.get('/api/seasons', function(req, res) {
     });
 });
 
+router.get('/api/seasons/:id/ranking', function(req, res) {
+	var id = req.params.id;
+    var subUrl = "soccerseasons/" + id + "/ranking";
+    cache.get('seasons' + id + 'ranking.json', baseUrl + subUrl, function(err, data) {
+        if (err) {
+            res.send("Villa: " + err);
+        } else {
+            res.send(data.toString());
+        }
+    });
+});
+
 /* GET home page. */
 router.get('/', function(req, res) {
   res.render('index', { title: 'Express' });
