@@ -1,5 +1,50 @@
 extends partials/layout
 
+
+
 block content
+	nav
+		ul
+			li
+				a(href='#') England
+				ul
+					li
+						a(href="#/rankings/354") Premier League
+			li
+				a(href='#') Spánn
+				ul
+					li
+						a(href="#/rankings/358") Primera Division
+					li
+						a(href="#/rankings/359") Segunda Division
+			li
+				a(href='#') Þýskaland
+				ul
+					li
+						a(href="#/rankings/351") 1. Bundesliga
+					li
+						a(href="#/rankings/352") 2. Bundesliga
+					li
+						a(href="#/rankings/353") 3. Bundesliga
+			li
+				a(href='#') Ítalía
+				ul
+					li
+						a(href="#/rankings/357") Serie A
+					li
+						aa(href="#/rankings/361") Serie B
+			li
+				a(href='#') Frakkland
+				ul
+					li
+						a(href="#/rankings/355") Ligue 1
+					li
+						a(href="#/rankings/356") Ligue 2
+			li
+				a(href='#') Holland
+				ul
+					li
+						a(href="#/rankings/360") Ehrendivision
+
 	a(href="/") Heim
 	div(ng-view)
