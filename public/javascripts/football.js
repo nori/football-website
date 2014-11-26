@@ -1,4 +1,4 @@
-var footballApp = angular.module('footballApp', ['ngRoute', 'ngResource', 'ui.calendar', 'ui.bootstrap']);
+var footballApp = angular.module('footballApp', ['ngRoute', 'ngResource', 'ngSanitize', 'ngAnimate', 'ui.calendar', 'mgcrea.ngStrap']);
 
 footballApp.config(function($routeProvider) {
   $routeProvider
@@ -88,12 +88,11 @@ footballApp.controller('RankingsController',
                 var e = {};
                 var texts = [];
                 for (i = 0; i < dates[date].length; i++) {
-                    texts.push(dates[date][i].title);
+                    texts.push("<b>" + dates[date][i].title + "</b>");
                 }
                 e.start = date;
-                e.fixtures = texts.join("\n");
+                e.fixtures = texts.join("<br>");
                 e.title = dates[date].length + " leikir";
-
                 $scope.events.push(e);
             }
         }
@@ -111,8 +110,13 @@ footballApp.controller('RankingsController',
     };
 
     $scope.eventRender = function( event, element, view ) {
-        element.attr({'tooltip': event.fixtures,
-                     'tooltip-append-to-body': true});
+        element.attr({'data-content': event.fixtures,
+                     'data-html': "html",
+                     'data-title': 'Leikir',
+                     'bs-popover': "",
+                     'data-animation': "am-flip-x",
+                     'container': 'body',
+                     'trigger': 'click'});
         $compile(element)($scope);
     };
 
@@ -126,13 +130,13 @@ footballApp.controller('RankingsController',
                 center: '',
                 right: 'today prev,next'
             },
-            dayClick: $scope.alertEventOnClick,
-            eventDrop: $scope.alertOnDrop,
-            eventResize: $scope.alertOnResize,
             eventRender: $scope.eventRender,
             dayNames: ['Sunnudagur', 'Mánudagur', 'Þriðjudagur', 'Miðvikudagur', 'Fimmtudagur', 'Föstudagur', 'Laugardagur'],
             dayNamesShort: ['Sun', 'Mán', 'Þri', 'Mið', 'Fim', 'Fös', 'Lau'],
-            monthNames: ['Janúar', 'Febrúar', 'Mars', 'Apríl', 'Maí', 'Júní', 'Júlí', 'Ágúst', 'September', 'Október', 'Nóvember', 'Desember']
+            monthNames: ['Janúar', 'Febrúar', 'Mars', 'Apríl', 'Maí', 'Júní', 'Júlí', 'Ágúst', 'September', 'Október', 'Nóvember', 'Desember'],
+            buttonText: {
+                today: 'Í dag'
+            }
         }
     };
 
