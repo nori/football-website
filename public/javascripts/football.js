@@ -69,15 +69,35 @@ footballApp.controller('RankingsController',
         $scope.prevFixtures = prevFixtures;
         $scope.nextFixtures = nextFixtures;
 
+        var dates = {};
         for (i = 0; i < fixtures.length; i++) {
-            var e = {};
-            e.title = fixtures[i].homeTeam + " - " + fixtures[i].awayTeam;
-            e.start = fixtures[i].date;
-            var d = new Date(fixtures[i].date);
-            e.end = new Date(d.getTime() + 90*60*1000); // 90 min duration
-
-            $scope.events.push(e);
+            var dateNoTime = new Date(fixtures[i].date);
+            dateNoTime.setHours(0, 0, 0, 0);
+            if (!dates[dateNoTime]) {
+                dates[dateNoTime] = [];
+            }
+            var eventObject = {
+                title: fixtures[i].homeTeam + " - " + fixtures[i].awayTeam,
+                date: fixtures[i].date
+            };
+            dates[dateNoTime].push(eventObject);
         }
+
+        for (var date in dates) {
+            if (dates.hasOwnProperty(date)) {
+                var e = {};
+                var texts = [];
+                for (i = 0; i < dates[date].length; i++) {
+                    texts.push(dates[date][i].title);
+                }
+                e.start = date;
+                e.fixtures = texts.join("\n");
+                e.title = dates[date].length + " leikir";
+
+                $scope.events.push(e);
+            }
+        }
+        
         angular.element('#myCalendar').fullCalendar('addEventSource', $scope.events);
     });
 
@@ -91,7 +111,7 @@ footballApp.controller('RankingsController',
     };
 
     $scope.eventRender = function( event, element, view ) {
-        element.attr({'tooltip': event.title,
+        element.attr({'tooltip': event.fixtures,
                      'tooltip-append-to-body': true});
         $compile(element)($scope);
     };
