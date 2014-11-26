@@ -2,12 +2,19 @@ div(ng-controller='RankingsController')
     h1= "Staða"
 
     div(ng-repeat="rank in rankings" ng-click="toggleTeam(rank.team)" ng-class="{selected: rank.team === selectedTeam}")
+        img(class="logo" src="{{rank.crestURI}}")
         {{rank.rank}} {{rank.team}}
 
     h1= "Síðustu leikir"
     div(ng-repeat="fixture in prevFixtures | filter: selectedTeam")
-        {{fixture.date | date:'dd/MM/yyyy kl. HH:mm'}} {{fixture.homeTeam}} {{fixture.goalsHomeTeam}} - {{fixture.goalsAwayTeam}} {{fixture.awayTeam}}
+        {{fixture.date | date:'dd/MM/yyyy kl. HH:mm'}}
+        img(class="logo" src="{{logos[fixture.homeTeam]}}")
+        {{fixture.homeTeam}} {{fixture.goalsHomeTeam}} - {{fixture.goalsAwayTeam}} {{fixture.awayTeam}}
+        img(class="logo" src="{{logos[fixture.awayTeam]}}")
 
     h1= "Næstu leikir"
-    div(ng-repeat="fixture in prevFixtures | filter: selectedTeam")
-        {{fixture.date | date:'dd/MM/yyyy kl. HH:mm'}} {{fixture.homeTeam}} - {{fixture.awayTeam}}
+    div(ng-repeat="fixture in nextFixtures | filter: selectedTeam")
+        {{fixture.date | date:'dd/MM/yyyy kl. HH:mm'}} 
+        img(class="logo" src="{{logos[fixture.homeTeam]}}")
+        {{fixture.homeTeam}} - {{fixture.awayTeam}}
+        img(class="logo" src="{{logos[fixture.awayTeam]}}")

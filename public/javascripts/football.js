@@ -47,6 +47,10 @@ footballApp.controller('RankingsController',
                         'Fixtures', function($scope, $routeParams, Rankings, Fixtures) {
     Rankings.get({id: $routeParams.id}, function(rankObject) {
         $scope.rankings = rankObject.ranking;
+        $scope.logos = {};
+        for (var i = 0; i < rankObject.ranking.length; i++) {
+            $scope.logos[rankObject.ranking[i].team] = rankObject.ranking[i].crestURI;
+        }
     });
     Fixtures.query({id: $routeParams.id}, function(fixtures) {
         var prevFixtures = [];
