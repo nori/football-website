@@ -1,5 +1,7 @@
-div(ng-controller='RankingsController')
+div
     h1= "Staða"
+
+    div(ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" id="myCalendar")
 
     table
         tbody

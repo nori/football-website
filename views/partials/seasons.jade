@@ -1,5 +1,5 @@
-div(ng-controller='FootballController')
-        h1= "Deildir"
+div
+    h1= "Deildir"
 
-        div(ng-repeat="season in seasons")
-            a(href="#/rankings/{{season.id}}") {{season.caption}}
+    div(ng-repeat="season in seasons")
+        a(href="#/rankings/{{season.id}}") {{season.caption}}

@@ -1,4 +1,4 @@
-var footballApp = angular.module('footballApp', ['ngRoute', 'ngResource']);
+var footballApp = angular.module('footballApp', ['ngRoute', 'ngResource', 'ui.calendar', 'ui.bootstrap']);
 
 footballApp.config(function($routeProvider) {
   $routeProvider
@@ -43,8 +43,9 @@ footballApp.controller('FootballController', ['$scope', 'Seasons', function($sco
 footballApp.controller('RankingsController', 
                         ['$scope', 
                         '$routeParams', 
+                        '$compile',
                         'Rankings', 
-                        'Fixtures', function($scope, $routeParams, Rankings, Fixtures) {
+                        'Fixtures', function($scope, $routeParams, $compile, Rankings, Fixtures) {
     Rankings.get({id: $routeParams.id}, function(rankObject) {
         $scope.rankings = rankObject.ranking;
         $scope.logos = {};
@@ -52,6 +53,8 @@ footballApp.controller('RankingsController',
             $scope.logos[rankObject.ranking[i].team] = rankObject.ranking[i].crestURI;
         }
     });
+
+    $scope.events = [];
     Fixtures.query({id: $routeParams.id}, function(fixtures) {
         var prevFixtures = [];
         var nextFixtures = [];
@@ -62,8 +65,20 @@ footballApp.controller('RankingsController',
                 nextFixtures.push(fixtures[i]);
             }
         }
+        $scope.fixtures = fixtures;
         $scope.prevFixtures = prevFixtures;
         $scope.nextFixtures = nextFixtures;
+
+        for (i = 0; i < fixtures.length; i++) {
+            var e = {};
+            e.title = fixtures[i].homeTeam + " - " + fixtures[i].awayTeam;
+            e.start = fixtures[i].date;
+            var d = new Date(fixtures[i].date);
+            e.end = new Date(d.getTime() + 90*60*1000); // 90 min duration
+
+            $scope.events.push(e);
+        }
+        angular.element('#myCalendar').fullCalendar('addEventSource', $scope.events);
     });
 
     $scope.selectedTeam = null;
@@ -74,4 +89,32 @@ footballApp.controller('RankingsController',
             $scope.selectedTeam = null;
         }
     };
+
+    $scope.eventRender = function( event, element, view ) {
+        element.attr({'tooltip': event.title,
+                     'tooltip-append-to-body': true});
+        $compile(element)($scope);
+    };
+
+    $scope.uiConfig = {
+        calendar:{
+            height: 450,
+            width: 450,
+            editable: false,
+            header:{
+                left: 'title',
+                center: '',
+                right: 'today prev,next'
+            },
+            dayClick: $scope.alertEventOnClick,
+            eventDrop: $scope.alertOnDrop,
+            eventResize: $scope.alertOnResize,
+            eventRender: $scope.eventRender,
+            dayNames: ['Sunnudagur', 'Mánudagur', 'Þriðjudagur', 'Miðvikudagur', 'Fimmtudagur', 'Föstudagur', 'Laugardagur'],
+            dayNamesShort: ['Sun', 'Mán', 'Þri', 'Mið', 'Fim', 'Fös', 'Lau'],
+            monthNames: ['Janúar', 'Febrúar', 'Mars', 'Apríl', 'Maí', 'Júní', 'Júlí', 'Ágúst', 'September', 'Október', 'Nóvember', 'Desember']
+        }
+    };
+
+    $scope.eventSources = [];
 }]);
