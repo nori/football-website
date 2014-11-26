@@ -9,12 +9,14 @@ div
                 th Sæti
                 th Lið
                 th Stig
+                th Markatala
                 th Markamunur
             tr(ng-repeat="rank in rankings" ng-click="toggleTeam(rank.team)" ng-class="{selected: rank.team === selectedTeam}")
                 td {{rank.rank}}
                    img(class="logo" src="{{rank.crestURI}}")
                 td {{rank.team}}
                 td {{rank.points}}
+                td {{rank.goals}} : {{rank.goalsAgainst}}
                 td {{rank.goalDifference}}
 
     h1= "Síðustu leikir"
