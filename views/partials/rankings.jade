@@ -6,7 +6,7 @@ div(ng-controller='RankingsController')
         {{rank.rank}} {{rank.team}}
 
     h1= "Síðustu leikir"
-    div(ng-repeat="fixture in prevFixtures | filter: selectedTeam")
+    div(ng-repeat="fixture in prevFixtures | filter: selectedTeam | orderBy:'date':true")
         {{fixture.date | date:'dd/MM/yyyy kl. HH:mm'}}
         img(class="logo" src="{{logos[fixture.homeTeam]}}")
         {{fixture.homeTeam}} {{fixture.goalsHomeTeam}} - {{fixture.goalsAwayTeam}} {{fixture.awayTeam}}
