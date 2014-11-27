@@ -76,8 +76,10 @@ footballApp.controller('RankingsController',
             if (!dates[dateNoTime]) {
                 dates[dateNoTime] = [];
             }
+            var d = new Date(fixtures[i].date);
             var eventObject = {
-                title: fixtures[i].homeTeam + " - " + fixtures[i].awayTeam,
+                title: $scope.addZero(d.getHours()) + ":" + $scope.addZero(d.getMinutes()) + " " +
+                		fixtures[i].homeTeam + " - " + fixtures[i].awayTeam,
                 date: fixtures[i].date
             };
             dates[dateNoTime].push(eventObject);
@@ -100,6 +102,13 @@ footballApp.controller('RankingsController',
         angular.element('#myCalendar').fullCalendar('addEventSource', $scope.events);
     });
 
+	$scope.addZero = function(i) {
+		if (i < 10) {
+			return "0" + i;
+		}
+		return i;
+	}
+
     $scope.selectedTeam = null;
     $scope.toggleTeam = function(team) {
         if ($scope.selectedTeam !== team) {
@@ -116,7 +125,9 @@ footballApp.controller('RankingsController',
                      'bs-popover': "",
                      'data-animation': "am-flip-x",
                      'container': 'body',
-                     'trigger': 'click'});
+                     'trigger': 'click',
+                     'focusable-popover': ""});
+
         $compile(element)($scope);
     };
 
@@ -142,3 +153,39 @@ footballApp.controller('RankingsController',
 
     $scope.eventSources = [];
 }]);
+
+footballApp.directive("focusable-popover", ["$timeout",
+    function ($timeout) {
+        return {
+            restrict : "EAC",
+            link     : function (scope, element, attrs) {
+            	console.log("focusablePopover");
+                var $body = angular.element("body");
+                var _hide = function (e) {
+                    // if you click on your element
+                    // or if you click inside the popover of your element
+                    // it will close the others
+                    if (!$(e.target).is(element) && !($(e.target).parents(".popover").eq(0).length)) {
+                        if (scope.$hide) {
+                            scope.$hide();
+                            scope.$apply();
+                        }
+                    }
+                };
+
+                // Stop propagation when clicking inside popover.
+                $timeout(function () {
+                	console.log("test2)");
+                    // Hide when clicking outside.
+                    $body.on("click", _hide);
+
+                    // Safe remove.
+                    scope.$on("$destroy", function () {
+                        $body.off("click", _hide);
+                        element.off("click");
+                    });
+                }, 0);
+            }
+        };
+    }
+]);
