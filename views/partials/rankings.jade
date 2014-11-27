@@ -3,7 +3,8 @@ div
 
     div(ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" id="myCalendar")
 
-    table
+    table#stodutafla
+        h1= "Staða í deild"
         tbody
             tr
                 th#tsaeti Sæti
@@ -20,17 +21,17 @@ div
                 td#markatala {{rank.goals}} : {{rank.goalsAgainst}}
                 td#markamunur {{rank.goalDifference}}
                 td#stig {{rank.points}}
-
-    h1= "Síðustu leikir"
-    div(ng-repeat="fixture in prevFixtures | filter: selectedTeam | orderBy:'date':true")
-        {{fixture.date | date:'dd/MM/yyyy kl. HH:mm'}}
-        img(class="logo" src="{{logos[fixture.homeTeam]}}")
-        {{fixture.homeTeam}} {{fixture.goalsHomeTeam}} - {{fixture.goalsAwayTeam}} {{fixture.awayTeam}}
-        img(class="logo" src="{{logos[fixture.awayTeam]}}")
-
-    h1= "Næstu leikir"
-    div(ng-repeat="fixture in nextFixtures | filter: selectedTeam")
-        {{fixture.date | date:'dd/MM/yyyy kl. HH:mm'}} 
-        img(class="logo" src="{{logos[fixture.homeTeam]}}")
-        {{fixture.homeTeam}} - {{fixture.awayTeam}}
-        img(class="logo" src="{{logos[fixture.awayTeam]}}")
+    div#fixtures
+        h1= "Síðustu leikir"
+        div(ng-repeat="fixture in prevFixtures | filter: selectedTeam | orderBy:'date':true")
+            {{fixture.date | date:'dd/MM/yyyy kl. HH:mm'}}
+            img(class="logo" src="{{logos[fixture.homeTeam]}}")
+            {{fixture.homeTeam}} {{fixture.goalsHomeTeam}} - {{fixture.goalsAwayTeam}} {{fixture.awayTeam}}
+            img(class="logo" src="{{logos[fixture.awayTeam]}}")
+    div#naest
+        h1= "Næstu leikir"
+        div(ng-repeat="fixture in nextFixtures | filter: selectedTeam")
+            {{fixture.date | date:'dd/MM/yyyy kl. HH:mm'}} 
+            img(class="logo" src="{{logos[fixture.homeTeam]}}")
+            {{fixture.homeTeam}} - {{fixture.awayTeam}}
+            img(class="logo" src="{{logos[fixture.awayTeam]}}")
