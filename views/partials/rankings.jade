@@ -6,18 +6,20 @@ div
     table
         tbody
             tr
-                th Sæti
-                th Lið
-                th Stig
-                th Markatala
-                th Markamunur
-            tr(ng-repeat="rank in rankings" ng-click="toggleTeam(rank.team)" ng-class="{selected: rank.team === selectedTeam}")
-                td {{rank.rank}}
-                   img(class="logo" src="{{rank.crestURI}}")
-                td {{rank.team}}
-                td {{rank.points}}
-                td {{rank.goals}} : {{rank.goalsAgainst}}
-                td {{rank.goalDifference}}
+                th#tsaeti Sæti
+                th#tlid Lið
+                th
+                th#tmarkatala Markatala
+                th#tmarkamunur Munur
+                th#tstig Stig
+            tr(ng-repeat="rank in rankings" ng-click="toggleTeam(rank.team)" ng-class="{selected: rank.team === selectedTeam}" ng-class-odd="'odd'")
+                td#saeti {{rank.rank}}    
+                td#mynd 
+                    img(class="logo" src="{{rank.crestURI}}") 
+                td#lid {{rank.team}}
+                td#markatala {{rank.goals}} : {{rank.goalsAgainst}}
+                td#markamunur {{rank.goalDifference}}
+                td#stig {{rank.points}}
 
     h1= "Síðustu leikir"
     div(ng-repeat="fixture in prevFixtures | filter: selectedTeam | orderBy:'date':true")
