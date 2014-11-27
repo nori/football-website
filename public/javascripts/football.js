@@ -95,6 +95,13 @@ footballApp.controller('RankingsController',
                 awayTeam = "<b>" + awayTeam + "</b>";
             }
 
+            if (fixtures[i].homeTeam === $scope.selectedTeam) {
+                homeTeam = "<u>" + homeTeam + "</u>";
+            }
+            if (fixtures[i].awayTeam === $scope.selectedTeam) {
+                awayTeam = "<u>" + awayTeam + "</u>";
+            }
+
             var eventObject = {
                 title: $scope.addZero(d.getHours()) + ":" + $scope.addZero(d.getMinutes()) + " " +
                         homeTeam + seperator + awayTeam,
