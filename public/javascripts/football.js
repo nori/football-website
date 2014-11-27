@@ -54,7 +54,6 @@ footballApp.controller('RankingsController',
         }
     });
 
-    $scope.events = [];
     Fixtures.query({id: $routeParams.id}, function(fixtures) {
         var prevFixtures = [];
         var nextFixtures = [];
@@ -69,6 +68,11 @@ footballApp.controller('RankingsController',
         $scope.prevFixtures = prevFixtures;
         $scope.nextFixtures = nextFixtures;
 
+        $scope.calculateEvents();
+    });
+
+    $scope.calculateEvents = function() {
+        var fixtures = $scope.fixtures;
         var dates = {};
         for (i = 0; i < fixtures.length; i++) {
             var dateNoTime = new Date(fixtures[i].date);
@@ -95,28 +99,32 @@ footballApp.controller('RankingsController',
                 title: $scope.addZero(d.getHours()) + ":" + $scope.addZero(d.getMinutes()) + " " +
                         homeTeam + seperator + awayTeam,
                 date: fixtures[i].date,
-                matchday: fixtures[i].matchday
+                matchday: fixtures[i].matchday,
+                isSelected: fixtures[i].homeTeam === $scope.selectedTeam || fixtures[i].awayTeam === $scope.selectedTeam
             };
             dates[dateNoTime].push(eventObject);
         }
 
+        $scope.events = [];
         for (var date in dates) {
             if (dates.hasOwnProperty(date)) {
                 var e = {};
                 var texts = [];
+                var isSelected = false;
                 for (i = 0; i < dates[date].length; i++) {
                     texts.push(dates[date][i].title);
+                    isSelected = isSelected || dates[date][i].isSelected;
                 }
                 e.start = date;
                 e.fixtures = texts.join("<br>");
-                // e.title = dates[date].length + " leikir";
                 e.title = dates[date][0].matchday + ". umferð";
+                e.selectedEvent = isSelected;
                 $scope.events.push(e);
             }
         }
-        
+        angular.element('#myCalendar').fullCalendar('removeEvents');
         angular.element('#myCalendar').fullCalendar('addEventSource', $scope.events);
-    });
+    };
 
     $scope.addZero = function(i) {
         if (i < 10) {
@@ -132,12 +140,16 @@ footballApp.controller('RankingsController',
         } else {
             $scope.selectedTeam = null;
         }
+        $scope.calculateEvents();
     };
 
     $scope.eventRender = function( event, element, view ) {
+        console.log(event.selectedEvent);
         var gamlaHtml = element.html();
-        var rettHtml = "<button type='button' class='eventButton btn btn-primary fc-event-inner' data-content='" + event.fixtures + "' " +
-                    "data-html='html' data-title='Leikir' bs-popover " +
+        var rettHtml = "<button type='button' class='eventButton btn btn-primary fc-event-inner' " + 
+                    "ng-class='{selectedEvent: " + event.selectedEvent + "}' " + 
+                    "data-content='" + event.fixtures + "' " +
+                    "data-html='html' data-title='Leikir' placement='left' bs-popover " +
                     "data-animation='am-flip-x' container='body' trigger='focus'>";
         gamlaHtml = gamlaHtml.replace("<div class=\"fc-event-inner\">", rettHtml);
         gamlaHtml = gamlaHtml.replace("</div>", "</button>");
