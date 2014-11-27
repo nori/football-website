@@ -17,7 +17,7 @@ div
                     img(class="logo" src="{{rank.crestURI}}") 
                 td#lid {{rank.team}}
                 td#markatala {{rank.goals}} : {{rank.goalsAgainst}}
-                td#markamunur {{rank.goalDifference}}
+                td#markamunur {{rank.goalDifference > 0 ? '+' : ''}}{{rank.goalDifference}}
                 td#stig {{rank.points}}
     h1= "Síðustu leikir"
     div#fixtures
