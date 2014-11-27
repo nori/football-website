@@ -33,3 +33,5 @@ cache
 # less compilar í þetta
 *style.css
 public/stylesheets/style.css
+
+.DS_Store
