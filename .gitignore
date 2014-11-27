@@ -31,4 +31,4 @@ node_modules
 cache
 
 # less compilar í þetta
-public/stylesheets/style.css
+style.css
