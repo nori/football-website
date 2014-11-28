@@ -26,7 +26,12 @@ body {
 }
 
 .calendar {
-    width: 450px;
+    @media screen {
+        width: 450px;
+    }
+    @media only screen and (max-device-width : 480px){
+        width: 100%;
+    }
 }
 
 .selectedEvent {
@@ -110,8 +115,13 @@ ul li:hover ul {
 }
 
 #stodutafla {
-    margin-left:0rem;
-    cursor: default;
+    @media screen {
+        margin-left:0rem;
+        cursor: default;
+    }
+    @media only screen and (max-device-width : 480px){
+        width: 100%;
+    }
 }
 
 footer {
@@ -204,5 +214,7 @@ footer {
 }
 
 #myCalendar {
-    float:right;
+    @media screen {
+        float:right;
+    }
 }
