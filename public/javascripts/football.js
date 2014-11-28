@@ -141,6 +141,7 @@ footballApp.controller('RankingsController',
     };
 
     $scope.selectedTeam = null;
+    $scope.matchday = 10;
     $scope.toggleTeam = function(team) {
         if ($scope.selectedTeam !== team) {
             $scope.selectedTeam = team;
@@ -150,8 +151,29 @@ footballApp.controller('RankingsController',
         $scope.calculateEvents();
     };
 
+    $scope.filterFunction = function(actual, expected) {
+        if ($scope.selectedTeam && $scope.selectedTeam !== actual.homeTeam && $scope.selectedTeam !== actual.awayTeam) {
+            return false;
+        }
+        if ($scope.matchday && $scope.matchday !== actual.matchday) {
+            return false;
+        }
+
+        return true;
+    };
+
+    $scope.nextMatchday = function() {
+        $scope.matchday++;
+    };
+
+    $scope.prevMatchday = function() {
+        $scope.matchday--;
+        if ($scope.matchday < 1) {
+            $scope.matchday = 1;
+        }
+    };
+
     $scope.eventRender = function( event, element, view ) {
-        console.log(event.selectedEvent);
         var gamlaHtml = element.html();
         var rettHtml = "<button type='button' class='eventButton btn btn-primary fc-event-inner' " + 
                     "ng-class='{selectedEvent: " + event.selectedEvent + "}' " + 
