@@ -1,11 +1,9 @@
 body {
-  padding: 5%;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  margin-left:5%;
-  margin-right:5%;
+    padding: 5%;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    margin-left:5%;
+    margin-right:5%;
 }
-
-
 
 .logo {
     max-width: 30px;
@@ -13,13 +11,13 @@ body {
 }
 
 .popover {
-	max-width: 600px;
-	z-index: 10;
+    max-width: 600px;
+    z-index: 10;
 }
 
 .eventButton {
-	padding: 0px;
-	font-size: 0.8em;
+    padding: 0px;
+    font-size: 0.8em;
 }
 
 .calendar {
@@ -27,123 +25,124 @@ body {
 }
 
 .selectedEvent {
-	background-color: #FF0000;
+    background-color: #FF0000;
 }
 
 .selectedEvent:hover {
-	background-color: #FF0000;
+    background-color: #FF0000;
 }
 
 .fc-event-title {
-   white-space: nowrap;
-   overflow: hidden;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 
-nav{
-	background: #8B8B8B;
-	width: 100%;
-	position: fixed;
-	opacity: 0.85;
-	top: 0;
-	height: 4em;
-	left: 0;
-	z-index: 1000;
-}
-ul{
-	padding: 0;
-	list-style: none;
-}
-ul li{
-	float: left;
-	width: 15%;
-	text-align: center;
-	text-transform: uppercase;
-	margin: 0.5% 1% 0% 0.65%;
-	font-weight: bold;
-	padding: 0.5em;
-}
-.undirlisti{
-	width: 100%;
-}
-ul li a{
-	display: block;
-	padding: 5px 10px;
-	color: #333;
-	background: #f2f2f2;
-	text-decoration: none;
-}
-ul li p{
-	display: block;
-	padding: 5px 10px;
-	color: #333;
-	background: #f2f2f2;
-	text-decoration: none;
-	cursor: default;
-}
-ul li p:hover{
-	color: #fff;
-	background: #939393;
-}
-ul li a:hover{
-	color: #fff;
-	background: #939393;
-}
-ul li ul{
-	display: none;
-}
-ul li:hover ul{
-	display: block;
+nav {
+    background: #8B8B8B;
+    width: 100%;
+    position: fixed;
+    opacity: 0.85;
+    top: 0;
+    height: 4em;
+    left: 0;
+    z-index: 1000;
+
+    ul {
+        padding: 0;
+        list-style: none;
+
+        li {
+            float: left;
+            width: 15%;
+            text-align: center;
+            text-transform: uppercase;
+            margin: 0.5% 1% 0% 0.65%;
+            font-weight: bold;
+            padding: 0.5em;
+
+            a {
+                display: block;
+                padding: 5px 10px;
+                color: #333;
+                background: #f2f2f2;
+                text-decoration: none;
+
+                &:hover {
+                    color: #fff;
+                    background: #939393;
+                }
+            }
+
+            p {
+                display: block;
+                padding: 5px 10px;
+                color: #333;
+                background: #f2f2f2;
+                text-decoration: none;
+                cursor: default;
+
+                &:hover {
+                    color: #fff;
+                    background: #939393;
+                }
+            }
+        }
+
+        ul{
+            display: none;
+        }
+    }
 }
 
-#stodutafla
-{
-  margin-left:0rem;
-  cursor: default;
+
+ul li:hover ul {
+    display: block;
 }
 
-footer{
-	display: block;
-	background: #8B8B8B;
-	width: 100%;
-	position: fixed;
-	opacity: 0.85;
-	bottom: 0;
-	height: 3em;
-	left: 0;
-	z-index: 1000;
-	font-weight: Bold;
-	padding: 0.65% 5% 0% 10%;
-	color: white;
+.undirlisti {
+    width: 100%;
 }
 
-footer p{
-	float: left;
+#stodutafla {
+    margin-left:0rem;
+    cursor: default;
 }
 
-.heim{
-	float: right;
-	display: block;
-	padding: 0.35% 5% 0.6%;
-	color: #333;
-	background: #f2f2f2;
-	text-decoration: none;
+footer {
+    display: block;
+    background: #8B8B8B;
+    width: 100%;
+    position: fixed;
+    opacity: 0.85;
+    bottom: 0;
+    height: 3em;
+    left: 0;
+    z-index: 1000;
+    font-weight: Bold;
+    padding: 0.65% 5% 0% 10%;
+    color: white;
+
+    p {
+        float: left;
+    }
+
+    a:hover {
+        color: #fff;
+        background: #939393;
+    }
 }
-.hafaSamband{
-	float: right;
-	display: block;
-	padding: 0.35% 2% 0.6%;
-	color: #333;
-	background: #f2f2f2;
-	text-decoration: none;
-	margin-right: -10%;
+
+.heim {
+    float: right;
+    display: block;
+    padding: 0.35% 5% 0.6%;
+    color: #333;
+    background: #f2f2f2;
+    text-decoration: none;
 }
-footer a:hover{
-	color: #fff;
-	background: #939393;
-}
-.odd
-{
+
+.odd {
   background-color: #E0E0EB;
 }
 
@@ -152,54 +151,53 @@ footer a:hover{
     color: #FFFFFF;
 }
 
-#lid
-{
-  width: 17rem; 
-}
-#stig
-{
-  width: 5rem;
-  text-align: center;
-}
-#markatala
-{
-  width: 7rem;
-  text-align: center;
-}
-#markamunur
-{
-  width: 7rem;
-  text-align: center;   
-}
-#tmarkatala
-{
-  width: 7rem;
-  text-align: center;
-}
-#tmarkamunur
-{
-  width: 7rem;
-  text-align: center;   
-}
-#tstig
-{
-  width: 5rem;
-  text-align: center;
-}
-#saeti
-{
-  padding-left:5px;
-  width: 3.6rem;
-}
-#mynd
-{
-  width:4rem;  
+#lid {
+    width: 17rem; 
 }
 
-#row
-{
-  height:2.9rem;
+#stig {
+    width: 5rem;
+    text-align: center;
 }
-#myCalendar{
-  float:right;
+
+#markatala {
+    width: 7rem;
+    text-align: center;
+}
+
+#markamunur {
+    width: 7rem;
+    text-align: center;   
+}
+
+#tmarkatala {
+    width: 7rem;
+    text-align: center;
+}
+
+#tmarkamunur {
+    width: 7rem;
+    text-align: center;   
+}
+
+#tstig {
+    width: 5rem;
+    text-align: center;
+}
+
+#saeti {
+    padding-left:5px;
+    width: 3.6rem;
+}
+
+#mynd {
+    width:4rem;
+}
+
+#row {
+    height:2.9rem;
+}
+
+#myCalendar {
+    float:right;
 }

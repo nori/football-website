@@ -23,7 +23,7 @@ div
     button(ng-click="prevMatchday()") Fyrri
     button(ng-click="nextMatchday()") Næsta
     div#fixtures
-        div(ng-repeat="fixture in fixtures | filter: filterFunction | orderBy:'date':true")
+        div(ng-repeat="fixture in fixtures | filter: filterFunction | orderBy:'date'")
             {{fixture.date | date:'dd/MM/yyyy kl. HH:mm'}}
             img(class="logo" src="{{logos[fixture.homeTeam]}}")
             {{fixture.homeTeam}} {{fixture.goalsHomeTeam}} - {{fixture.goalsAwayTeam}} {{fixture.awayTeam}}
