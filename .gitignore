@@ -28,7 +28,7 @@ node_modules
 .lock-wscript
 
 # Cache files
-cache
+cache/*
 
 # less compilar í þetta
 *style.css
