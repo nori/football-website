@@ -61,6 +61,8 @@ footballApp.controller('RankingsController',
             if (fixtures[i].goalsHomeTeam > -1) {
                 prevFixtures.push(fixtures[i]);
             } else {
+                fixtures[i].goalsHomeTeam = "";
+                fixtures[i].goalsAwayTeam = "";
                 nextFixtures.push(fixtures[i]);
             }
         }
