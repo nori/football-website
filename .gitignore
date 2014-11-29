@@ -27,9 +27,6 @@ node_modules
 # Users Environment Variables
 .lock-wscript
 
-# Cache files
-cache
-
 # less compilar í þetta
 *style.css
 public/stylesheets/style.css

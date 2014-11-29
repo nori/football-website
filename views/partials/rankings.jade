@@ -19,17 +19,12 @@ div
                 td#markatala {{rank.goals}} : {{rank.goalsAgainst}}
                 td#markamunur {{rank.goalDifference > 0 ? '+' : ''}}{{rank.goalDifference}}
                 td#stig {{rank.points}}
-    h1= "Síðustu leikir"
+    h1= "Leikir - {{matchday}}. umferð"
+    button(class="btn btn-primary" ng-click="prevMatchday()") Fyrri
+    button(class="btn btn-primary" ng-click="nextMatchday()") Næsta
     div#fixtures
-        div(ng-repeat="fixture in prevFixtures | filter: selectedTeam | orderBy:'date':true")
+        div(ng-repeat="fixture in fixtures | filter: filterFunction | orderBy:'date'")
             {{fixture.date | date:'dd/MM/yyyy kl. HH:mm'}}
             img(class="logo" src="{{logos[fixture.homeTeam]}}")
             {{fixture.homeTeam}} {{fixture.goalsHomeTeam}} - {{fixture.goalsAwayTeam}} {{fixture.awayTeam}}
-            img(class="logo" src="{{logos[fixture.awayTeam]}}")
-    h1= "Næstu leikir"
-    div#naest
-        div(ng-repeat="fixture in nextFixtures | filter: selectedTeam")
-            {{fixture.date | date:'dd/MM/yyyy kl. HH:mm'}} 
-            img(class="logo" src="{{logos[fixture.homeTeam]}}")
-            {{fixture.homeTeam}} - {{fixture.awayTeam}}
             img(class="logo" src="{{logos[fixture.awayTeam]}}")
