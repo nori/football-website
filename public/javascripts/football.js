@@ -60,6 +60,7 @@ footballApp.controller('RankingsController',
         for (var i = 0; i < fixtures.length; i++) {
             if (fixtures[i].goalsHomeTeam > -1) {
                 prevFixtures.push(fixtures[i]);
+                $scope.matchday = fixtures[i].matchday;
             } else {
                 fixtures[i].goalsHomeTeam = "";
                 fixtures[i].goalsAwayTeam = "";
@@ -69,6 +70,10 @@ footballApp.controller('RankingsController',
         $scope.fixtures = fixtures;
         $scope.prevFixtures = prevFixtures;
         $scope.nextFixtures = nextFixtures;
+        if (nextFixtures.length > 0) {
+            // Setjum default umferð sem næstu umferð ef hún er til
+            $scope.matchday++;
+        }
 
         $scope.calculateEvents();
     });
@@ -143,7 +148,7 @@ footballApp.controller('RankingsController',
     };
 
     $scope.selectedTeam = null;
-    $scope.matchday = 10;
+    $scope.matchday = 1;
     $scope.toggleTeam = function(team) {
         if ($scope.selectedTeam !== team) {
             $scope.selectedTeam = team;
